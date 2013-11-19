@@ -31,9 +31,7 @@ int main() {
 	vector<LineSegment> posDiagSegments = FindPosDiagLines(binarizedImage);
 	vector<LineSegment> negDiagSegments = FindNegDiagLines(binarizedImage);
 
-	std::cout << horizSegments.size() << '\t' << vertSegments.size()
-		<< '\t' << posDiagSegments.size() << '\t'
-		<< negDiagSegments.size() << std::endl;
+	vector<LineSegment> horizLines = HorizLineExtraction(horizSegments, 672, 672);
 	std::cin.get();
 
 
