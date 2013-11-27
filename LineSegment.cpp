@@ -1,5 +1,4 @@
 #include <math.h>
-#include <iostream>
 #include "LineSegment.h"
 #include "itkImageLinearIteratorWithIndex.h"
 
@@ -12,56 +11,63 @@ LineSegment::LineSegment(int sx, int ex, int sy, int ey, double mx, double my)
 	midx = mx;
 	midy = my;
 }
+
+LineSegment::LineSegment(const LineSegment& ls) {
+	startx = ls.startx;
+	endx = ls.endx;
+	starty = ls.starty;
+	endy = ls.endy;
+	midx = ls.midx;
+	midy = ls.midy;
+
+	if (length) {
+		this->SetLength();
+	}
+}
+
+LineSegment::LineSegment() {
+	startx = 0;
+	endx = 0;
+	starty = 0;
+	endy = 0;
+	midx = 0;
+	midy = 0;
+}
+
 LineSegment::~LineSegment() { }
 
-LineSegment::LineSegment(const LineSegment& LS) {
-	startx = LS.startx;
-	endx = LS.endx;
-	starty = LS.starty;
-	endy = LS.endy;
-	midx = LS.midx;
-	midy = LS.midy;
-	SetLength();
+void LineSegment::SetLength() {
+	length = sqrt( (float)(endx - startx) * (endx - startx) + (endy - starty) * (endy - starty));
 }
 
-void LineSegment::SetLength(void) {
-	length = sqrt( (double)(endx - startx) * (endx - startx) + (endy - starty) * (endy - starty));
-}
-
-float LineSegment::GetLength(void) {
+float LineSegment::GetLength() {
 	return length;
 }
 
-LineSegment& LineSegment::operator=(const LineSegment& LS) {
+LineSegment& LineSegment::operator=(LineSegment& LS){
 	LineSegment* newLine;
-	if (this != &LS)
-	{
+	if (this != &LS) {
 		try {
 			newLine = new LineSegment(LS);
 		}
-		catch (...) {
-			delete newLine;
-			throw;		
+
+		catch (...){
+			delete[] newLine;
+			throw;
 		}
-
-		this->startx = newLine->startx;
-		this->endx = newLine->endx;
-		this->starty = newLine->starty;
-		this->endy = newLine -> endy;
-		this->midx = newLine->midx;
-		this->midy = newLine->midy;
-		this->SetLength();
-
-		delete newLine;
+	
+	startx = newLine->startx;
+	endx = newLine->endx;
+	starty = newLine->starty;
+	endy = newLine->endy;
+	midx = newLine->midx;
+	midy = newLine->midy;
+	SetLength();
 	}
+	delete newLine;
 	return *this;
 }
 
-bool operator==(const LineSegment& L1, const LineSegment& L2) {
+bool operator==(LineSegment L1, LineSegment L2) {
 	return ((L1.startx == L2.startx) && (L1.endx == L2.endx) && (L1.starty == L2.starty) && (L1.endy == L2.endy));
-}
-
-std::ostream& operator<<(std::ostream& out, const LineSegment& LS) {
-	out << &LS;
-	return out;
 }

@@ -13,8 +13,10 @@ public:
 
 	void SetLength();
 	float GetLength();
+	void SetTheta();
+	double GetTheta();
 	int startx, endx, starty, endy;
-	double midx, midy;
+	double midx, midy, slope;
 
 	LineSegment& operator= (const LineSegment& );
 	friend bool operator==(const LineSegment&, const LineSegment&);
@@ -30,5 +32,15 @@ std::vector<LineSegment> FindVerticalLines(itk::Image<float, 2>::Pointer);
 std::vector<LineSegment> FindPosDiagLines(itk::Image<float, 2>::Pointer);
 std::vector<LineSegment> FindNegDiagLines(itk::Image<float, 2>::Pointer);
 std::vector<LineSegment> HorizLineExtraction(std::vector<LineSegment>, int, int);
+std::vector<LineSegment> VertLineExtraction(std::vector<LineSegment>, int, int);
+std::vector<LineSegment> DiagExtraction(std::vector<LineSegment>, int, int);
 
+double y0(double);
+double yn(double);
+double x0(double);
+double xn(double);
+
+double ThetaEstimation(LineSegment, LineSegment);
+double REstimation(std::vector<LineSegment>);
+double* CenterEstimation(std::vector<LineSegment>);
 #endif

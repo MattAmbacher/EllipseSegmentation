@@ -33,8 +33,11 @@ vector<LineSegment> FindHorizontalLines(itk::Image<float, 2>::Pointer inputImage
 				endx = (inIter.GetIndex())[0];
 				endy = (inIter.GetIndex())[1];
 		
-				if ( (endx - startx) >= 3 ) {
-					segList.push_back(LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0));
+				if ( (endx - startx) >= 3 ) 
+				{
+					LineSegment seg = LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0);
+					seg.SetLength();
+					segList.push_back(seg);
 				}
 			}
 			++inIter;
@@ -45,7 +48,7 @@ vector<LineSegment> FindHorizontalLines(itk::Image<float, 2>::Pointer inputImage
 }
 
 vector<LineSegment> FindVerticalLines(itk::Image<float, 2>::Pointer inputImage)
-{
+{	
 	vector<LineSegment> segList;
 
 	InIter inIter(inputImage, inputImage->GetLargestPossibleRegion());
@@ -71,7 +74,9 @@ vector<LineSegment> FindVerticalLines(itk::Image<float, 2>::Pointer inputImage)
 				endy = (inIter.GetIndex())[1];
 		
 				if ( (endy - starty) >= 2 ) {
-					segList.push_back(LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0));
+					LineSegment seg = LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0);
+					seg.SetLength();
+					segList.push_back(seg);
 				}
 			}
 			++inIter;
@@ -117,7 +122,9 @@ vector<LineSegment> FindPosDiagLines(itk::Image<float, 2>::Pointer inputImage)
 				endy = (inIter.GetIndex())[1];
 		
 				if ( length >= 2 ) {
-					segList.push_back(LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0));
+					LineSegment seg = LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0);
+					seg.SetLength();
+					segList.push_back(seg);
 				}
 
 				for (int i=1; i < length; i++){
@@ -170,7 +177,9 @@ vector<LineSegment> FindNegDiagLines(itk::Image<float, 2>::Pointer inputImage)
 				endy = (inIter.GetIndex())[1];
 		
 				if ( length >= 2 ) {
-					segList.push_back(LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0));
+					LineSegment seg = LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0);
+					seg.SetLength();
+					segList.push_back(seg);
 				}
 
 				for (int i=1; i < length; i++){
