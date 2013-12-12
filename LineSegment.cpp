@@ -1,4 +1,5 @@
 #include <math.h>
+#include <iostream>
 #include "LineSegment.h"
 #include "itkImageLinearIteratorWithIndex.h"
 
@@ -10,64 +11,111 @@ LineSegment::LineSegment(int sx, int ex, int sy, int ey, double mx, double my)
 	endy = ey;
 	midx = mx;
 	midy = my;
+	SetTheta();
+	SetLength();
+	SetDirection();
 }
-
-LineSegment::LineSegment(const LineSegment& ls) {
-	startx = ls.startx;
-	endx = ls.endx;
-	starty = ls.starty;
-	endy = ls.endy;
-	midx = ls.midx;
-	midy = ls.midy;
-
-	if (length) {
-		this->SetLength();
-	}
-}
-
-LineSegment::LineSegment() {
-	startx = 0;
-	endx = 0;
-	starty = 0;
-	endy = 0;
-	midx = 0;
-	midy = 0;
-}
-
 LineSegment::~LineSegment() { }
 
-void LineSegment::SetLength() {
-	length = sqrt( (float)(endx - startx) * (endx - startx) + (endy - starty) * (endy - starty));
+LineSegment::LineSegment(const LineSegment& LS) {
+	startx = LS.startx;
+	endx = LS.endx;
+	starty = LS.starty;
+	endy = LS.endy;
+	midx = LS.midx;
+	midy = LS.midy;
+	SetTheta();
+	SetLength();
+	SetDirection();
 }
 
-float LineSegment::GetLength() {
+void LineSegment::SetLength(void) {
+	length = sqrt( (double)(endx - startx) * (endx - startx) + (endy - starty) * (endy - starty));
+}
+
+void LineSegment::SetDirection(void) {
+	if (startx > endx)
+		direction = "left";
+	else if (startx < endx)
+		direction = "right";
+	else
+	{
+		if (starty > endy)
+			direction = "up";
+		else
+			direction = "down";
+	}
+
+}
+
+std::string LineSegment::GetDirection(void) {
+	return direction;
+}
+
+void LineSegment::SetTheta(void) {
+	if (startx == endx) 
+		slope = 90;
+	else
+		slope = atan2((double)endy - midy, endx - midx) * 180 / 3.14159;
+	if (slope < -90)
+		slope += 180;
+	if (slope > 90)
+		slope -= 180;
+}
+
+double LineSegment::GetTheta(void) {
+	return slope;
+}
+float LineSegment::GetLength(void) {
 	return length;
 }
 
-LineSegment& LineSegment::operator=(LineSegment& LS){
+LineSegment& LineSegment::operator=(const LineSegment& LS) {
 	LineSegment* newLine;
-	if (this != &LS) {
+	if (this != &LS)
+	{
 		try {
 			newLine = new LineSegment(LS);
 		}
-
-		catch (...){
-			delete[] newLine;
-			throw;
+		catch (...) {
+			delete newLine;
+			throw;		
 		}
-	
-	startx = newLine->startx;
-	endx = newLine->endx;
-	starty = newLine->starty;
-	endy = newLine->endy;
-	midx = newLine->midx;
-	midy = newLine->midy;
-	SetLength();
+
+		this->startx = newLine->startx;
+		this->endx = newLine->endx;
+		this->starty = newLine->starty;
+		this->endy = newLine -> endy;
+		this->midx = newLine->midx;
+		this->midy = newLine->midy;
+		this->SetLength();
+
+		delete newLine;
 	}
-	delete newLine;
 	return *this;
 }
 
-bool operator==(LineSegment L1, LineSegment L2) {
+bool operator==(const LineSegment& L1, const LineSegment& L2) {
 	return ((L1.startx == L2.startx) && (L1.endx == L2.endx) && (L1.starty == L2.starty) && (L1.endy == L2.endy));
+}
+
+std::ostream& operator<<(std::ostream& out, const LineSegment& LS) {
+	out << &LS;
+	return out;
+}
+
+double y0(double y) {
+	return y + 0.5;
+}
+
+double x0(double x) {
+	return x + 0.5;
+}
+
+double yn(double y) {
+	return y + 0.5;
+}
+
+double xn(double x) {
+	return x + 0.5;
 }

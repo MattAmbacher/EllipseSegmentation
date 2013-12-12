@@ -1,0 +1,153 @@
+# CMake generation dependency list for this directory.
+C:/Users/Matthew Ambacher/Desktop/EllipseSegmentation/CMakeLists.txt
+C:/Users/Matthew Ambacher/Desktop/EllipseSegmentation/build/CMakeFiles/2.8.12/CMakeSystem.cmake
+C:/Users/Matthew Ambacher/Desktop/EllipseSegmentation/build/CMakeFiles/2.8.12/CMakeCCompiler.cmake
+C:/Users/Matthew Ambacher/Desktop/EllipseSegmentation/build/CMakeFiles/2.8.12/CMakeCXXCompiler.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeSystemSpecificInformation.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeGenericSystem.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/Platform/Windows.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/Platform/WindowsPaths.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeCInformation.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/Platform/Windows-MSVC-C.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/Platform/Windows-MSVC.cmake
+C:/Users/Matthew Ambacher/Desktop/EllipseSegmentation/build/CMakeFiles/2.8.12/CMakeRCCompiler.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeRCInformation.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeCXXInformation.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/Platform/Windows-MSVC-CXX.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/Platform/Windows-MSVC.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindITK.cmake
+C:/build/ITK/ITKConfigVersion.cmake
+C:/build/ITK/ITKConfig.cmake
+C:/build/ITK/ITKTargets.cmake
+C:/InsightToolkit-4.4.2/CMake/ITKModuleAPI.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKDoubleConversion.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKKWSys.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKVNL.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKVNLInstantiation.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKCommon.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKFiniteDifference.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageFilterBase.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKCurvatureFlow.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageAdaptors.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKNetlib.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKStatistics.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKTransform.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageFunction.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageGrid.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKAnisotropicSmoothing.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageCompose.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOImageBase.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKMesh.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKZLIB.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKMetaIO.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKSpatialObjects.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageStatistics.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKPath.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageIntensity.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageLabel.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKThresholding.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKConnectedComponents.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKMathematicalMorphology.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKLabelMap.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKBinaryMathematicalMorphology.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKNarrowBand.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKDistanceMap.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKQuadEdgeMesh.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKFastMarching.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageCompare.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKSmoothing.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageGradient.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageSources.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageFeature.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKOptimizers.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKSignedDistanceFunction.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKLevelSets.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKAntiAlias.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKPolynomials.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKBiasCorrection.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKBioCell.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKClassifiers.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKColormap.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKFFT.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKConvolution.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKDICOMParser.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKDeconvolution.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKDeformableMesh.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKDenoising.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKDiffusionTensorImage.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKDisplacementField.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKEigen.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKExpat.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOXML.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOSpatialObjects.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKRegistrationCommon.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKFEM.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKPDEDeformableRegistration.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKFEMRegistration.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKOpenJPEG.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKGDCM.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKNIFTI.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKGIFTI.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKGPUCommon.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKGPUFiniteDifference.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKGPUAnisotropicSmoothing.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKGPUImageFilterBase.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKGPURegistrationCommon.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKGPUPDEDeformableRegistration.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKGPUSmoothing.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKGPUThresholding.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKHDF5.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOBMP.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOBioRad.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOCSV.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOGDCM.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOIPL.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOGE.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOGIPL.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOHDF5.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKJPEG.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOJPEG.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKTIFF.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOTIFF.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOLSM.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOMesh.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOMeta.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIONIFTI.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKNrrdIO.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIONRRD.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKPNG.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOPNG.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIORAW.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOSiemens.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOStimulate.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOTransformBase.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOTransformHDF5.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOTransformInsightLegacy.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOTransformMatlab.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIOVTK.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKImageFusion.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKIntegratedTest.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKKLMRegionGrowing.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKLabelVoting.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKLevelSetsv4.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKMarkovRandomFieldsClassifiers.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKOptimizersv4.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKMetricsv4.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKNeuralNetworks.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKQuadEdgeMeshFiltering.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKRegionGrowing.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKRegistrationMethodsv4.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKSpatialFunction.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKVTK.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKVoronoi.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKWatersheds.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKReview.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKTestKernel.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKVideoCore.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKVideoFiltering.cmake
+C:/build/ITK/lib/cmake/ITK-4.4/Modules/ITKVideoIO.cmake
+C:/InsightToolkit-4.4.2/CMake/UseITK.cmake
+C:/InsightToolkit-4.4.2/CMake/itkImageIOFactoryRegisterManager.h.in
+C:/InsightToolkit-4.4.2/CMake/itkTransformIOFactoryRegisterManager.h.in

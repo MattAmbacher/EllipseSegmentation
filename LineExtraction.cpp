@@ -5,110 +5,165 @@
 
 using std::vector;
 
-const int GAPX = 50;
-double Sq(double);
-double Si(double);
-double y0(double);
-double yn(double);
-double xn(double);
-double x0(double);
-double LengthBetweenTwoLines(LineSegment, LineSegment);
+const int GAPX = 20;
+const int GAPY = 20;
 
 vector<LineSegment> HorizLineExtraction(vector<LineSegment> horizSegments, int maxWidth, int maxHeight){
 	vector<LineSegment> lineList;
+	vector<LineSegment> tempLineList;
 	int leftBoundary, rightBoundary, lowBoundary, upBoundary;
-	LineSegment* SL = new LineSegment();
 	double slope1, a; //used to determine the upper/lower boundary of the window.
-
-	bool validLine = false;
-
-	for (vector<LineSegment>::iterator si = horizSegments.begin(); si != horizSegments.end(); ++si)
+	for (vector<LineSegment>::iterator si = horizSegments.begin(); si != horizSegments.end(); si++)
 	{
-		//Step 1
-		lineList.push_back(*si);
+		//step 1
+		tempLineList.push_back(*si);
+		for (vector<LineSegment>::iterator sq = si+1; sq != horizSegments.end(); ++sq)
+		{	
+			//step 2
+			LineSegment SL = (si->GetLength() >= sq->GetLength()) ? *si: *sq; //longest line between sq and si	
 
-		for (vector<LineSegment>::iterator sq = si+1; sq != horizSegments.end(); ++ sq)
-		{
-			vector<LineSegment> intermediateLineList;
-			(x0(si->startx) >= GAPX) ? (leftBoundary = x0(si->startx) - GAPX) : (leftBoundary = 0);
-			(xn(si->endx) <= (maxHeight - GAPX - 1)) ? (rightBoundary = xn(si->endx) + GAPX) : (rightBoundary = maxHeight);
-			upBoundary = y0(si->starty);
-			slope1 = ( 2 * ( yn(si->endy) - y0(si->starty)) - 1) / (2*(xn(si->endx) - x0(si->startx)) );
-			lowBoundary = slope1 * (leftBoundary) + (yn(si->endx) - slope1*xn(si->endx));
-			if (lowBoundary >= maxHeight)
-				lowBoundary = maxHeight;
-			if (lowBoundary < 0)
-				lowBoundary = 0;
-
-			if ( ((x0(sq->startx) >= leftBoundary && x0(sq->startx) <= rightBoundary) || (xn(sq->endx) >= leftBoundary && xn(sq->startx) <= rightBoundary) )
-				&& ( (y0(sq->starty) <= lowBoundary && y0(sq->starty) >= upBoundary) || (yn(sq->endy) <= lowBoundary && yn(sq->endy) >= upBoundary))) //checks if they're in the window
+			leftBoundary = (si->startx - GAPX);
+			rightBoundary = (si->endx + GAPX);
+			lowBoundary = si->starty;
+			slope1 = ( 2 * ( yn(si->endy) - y0(si->starty)) - 1 ) / (2*(xn(si->endx) - x0(si->startx)));
+			upBoundary = slope1 * (leftBoundary) + (yn(si->endy) - slope1 * xn(si->endx));
+			if ( ((sq->startx >= leftBoundary && sq->startx <= rightBoundary) || (sq->endx >= leftBoundary && sq->endx <=rightBoundary)) &&
+				((sq->starty >= lowBoundary && sq->starty <= upBoundary) || (sq->endy >= lowBoundary && sq->endy <= upBoundary))) //is segment in window?
 			{
-
-				//Step 2
-				*SL = (si->GetLength() >= sq->GetLength()) ? (*si) : (*sq);
+				//step 3
+				if(sq->endx > si->endx) //positive line
+					a = (yn(sq->endy) - y0(si->starty))/ (xn(sq->endx) - x0(si->startx));
+				else if (sq->startx < si->startx) //negative line
+					a = (yn(si->endy) - y0(sq->starty)) / (xn(si->endx) - x0(sq->startx));
+				else //vertical line
+					continue;
 				
-				//Step 3
-				if (sq->midx == si->midx)
-					continue; //lines are directly over one another
-				if ( (sq->midy - si->midy) / (sq->midx - si->midx) >= 0) //positive slope
-					a = (yn(sq->endy) - y0(si->starty)) / (xn(sq->endx) - x0(si->startx));
-				else
-					a = (yn(si->endy) - y0(sq->starty))/(xn(si->endx) - x0(sq->startx));
+				//step4
+				bool validLine = false;
+				validLine = fabs( ((double)y0(SL.starty) - a*x0(SL.startx)) - (yn(SL.endy) - a*xn(SL.endx))) < 1.0 ;
 
-				//Step 4
-				validLine = fabs( (y0(SL->starty) - a * x0(SL->startx)) - (yn(SL->endy) - a* xn(SL->endx)) ) < 1;
-
-				//if (validLine) go to step 5, else go to step 7
-				if (validLine) {
-					//step 5 and 6 (step 6 is just repeating Steps 3 and 4)
-					intermediateLineList.push_back(*sq);
-					si = sq; //sq becomes new starting line
-					continue; //start over
-				}
-				std::cout << horizSegments.size() <<std::endl;
-
-				//Step 7
-				if (LengthBetweenTwoLines(intermediateLineList[0], intermediateLineList.back()) > 3) {
-					lineList.push_back(LineSegment(intermediateLineList[0].startx, intermediateLineList.back().endx, intermediateLineList[0].starty, intermediateLineList.back().endy, (intermediateLineList[0].startx + intermediateLineList.back().endx) / 2.0,
-						(intermediateLineList[0].starty + intermediateLineList.back().endy) / 2.0));
-					for (vector<LineSegment>::iterator iLLit = intermediateLineList.begin(); iLLit != intermediateLineList.end(); ++iLLit)
-					{
-						vector<LineSegment>::iterator eraseIt = std::find(horizSegments.begin(), horizSegments.end(), *iLLit);
-						horizSegments.erase(eraseIt); 
-						std::cout<< horizSegments.size() << std::endl;
-					}
+				if (validLine) //if valid go to step 5, if not go to step 7
+				{
+					//step 5
+					tempLineList.push_back(*sq);
+					si = sq;
+					continue; //continue is step 6, aka starts the process over and keeps looking
 				}
 			}
 		}
+		//step 7
+		if (tempLineList[0].startx < tempLineList.back().endx)
+			lineList.push_back( LineSegment(tempLineList.back().endx, tempLineList[0].startx, tempLineList.back().endy, tempLineList[0].starty,  (tempLineList[0].startx + tempLineList.back().endx) / 2.0, 
+				(tempLineList[0].starty + tempLineList.back().endy) / 2.0));
+		else
+			lineList.push_back(LineSegment(tempLineList[0].startx, tempLineList.back().endx, tempLineList[0].starty, tempLineList.back().endy, (tempLineList[0].startx + tempLineList.back().endx) / 2.0, 
+				(tempLineList[0].starty + tempLineList.back().endy) / 2.0));
+		tempLineList.clear();
 	}
-
 	return lineList;
 }
 
-double Si(double x) {
-	return x;
+vector<LineSegment> VertLineExtraction(vector<LineSegment> vertSegments, int maxWidth, int maxHeight){
+
+	// To extract Vertical lines simply exchange x and y parameters
+	vector<LineSegment> lineList;
+	vector<LineSegment> tempLineList;
+	int leftBoundary, rightBoundary, lowBoundary, upBoundary;
+	double slope1, a; //used to determine the upper/lower boundary of the window.
+	for (vector<LineSegment>::iterator si = vertSegments.begin(); si != vertSegments.end(); si++)
+	{
+		//step 1
+		tempLineList.push_back(*si);
+		for (vector<LineSegment>::iterator sq = si+1; sq != vertSegments.end(); ++sq)
+		{	
+			//step 2
+			LineSegment SL = (si->GetLength() >= sq->GetLength()) ? *si: *sq; //longest line between sq and si	
+			leftBoundary = (si->startx);
+			lowBoundary = (si->starty - GAPY >= 0) ? (si->starty - GAPY) : 0;
+			slope1 = ( 2 * ( xn(si->endx) - x0(si->startx)) - 1 ) / (2*(yn(si->endy) - y0(si->starty)));
+			upBoundary = (si->endy + GAPY < maxHeight) ? (si->endy + GAPY) : maxHeight;
+			rightBoundary = slope1 * (lowBoundary) + (xn(si->endx) - slope1 * yn(si->endy));
+			if ( ((sq->startx >= leftBoundary && sq->startx <= rightBoundary) || (sq->endx >= leftBoundary && sq->endx <=rightBoundary)) &&
+				((sq->starty >= lowBoundary && sq->starty <= upBoundary) || (sq->endy >= lowBoundary && sq->endy <= upBoundary))) //is segment in window?
+			{
+				//step 3
+				if(sq->endy > si->endy) //positive line
+					a = (xn(sq->endx) - x0(si->startx))/ (yn(sq->endy) - y0(si->starty));
+				else if (sq->starty < si->starty) //negative line
+					a = (xn(si->endx) - x0(sq->startx)) / (yn(si->endy) - y0(sq->starty));
+				else //vertical line
+					continue;
+				//step4
+				bool validLine = false;
+				validLine = fabs( ((double)x0(SL.startx) - a*y0(SL.starty)) - (xn(SL.endx) - a*yn(SL.endy))) < 1.0 ;
+
+				if (validLine) //if valid go to step 5, if not go to step 7
+				{
+					//step 5
+					tempLineList.push_back(*sq);
+					si = sq;
+					continue; //continue is step 6, aka starts the process over and keeps looking
+				}
+			}
+		}
+		//step 7
+		lineList.push_back(LineSegment(tempLineList[0].startx, tempLineList.back().endx, tempLineList[0].starty, tempLineList.back().endy, (tempLineList[0].startx + tempLineList.back().endx) / 2.0, 
+			(tempLineList[0].starty + tempLineList.back().endy) / 2.0));
+				if (tempLineList[0].startx > tempLineList.back().endx)
+		tempLineList.clear();
+	}
+	return lineList;
 }
 
-double Sq(double x) {
-	return x;
-}
+vector<LineSegment> DiagExtraction(vector<LineSegment> diagSegments, int maxWidth, int maxHeight) 
+{
+	vector<LineSegment> lineList;
+	vector<LineSegment> tempLineList;
+	int leftBoundary, rightBoundary, lowBoundary, upBoundary;
+	double a; 
+	
+	double cosTheta = cos(3.14159 / 4.0);
+	for (vector<LineSegment>::iterator si = diagSegments.begin(); si != diagSegments.end(); si++)
+	{
+		//step 1
+		tempLineList.push_back(*si);
+		for (vector<LineSegment>::iterator sq = si+1; sq != diagSegments.end(); ++sq)
+		{	
+			//step 2
+			//Diverged a bit from the paper here, making a simpler window rather than the skewed window they create.
+			lowBoundary = (si->midy - (si->GetLength()/2.0*cosTheta - GAPY));
+			upBoundary = (si->midy + (si->GetLength()/2.0*cosTheta + GAPY));
+			leftBoundary = (si->midx - (si->GetLength()/2.0*cosTheta - GAPX)); //technically sin(theta), but cos(45) sin(45) are the same
+			rightBoundary = (si->midx + (si->GetLength()/2.0*cosTheta + GAPX)); //technically sin(theta), but cos(45) sin(45) are the same
+			LineSegment SL = (si->GetLength() >= sq->GetLength()) ? *si: *sq; //longest line between sq and si	
+			if ( ((sq->startx >= leftBoundary && sq->startx <= rightBoundary) || (sq->endx >= leftBoundary && sq->endx <=rightBoundary)) &&
+				((sq->starty >= lowBoundary && sq->starty <= upBoundary) || (sq->endy >= lowBoundary && sq->endy <= upBoundary))) //is segment in window?
+			{
+				//step 3
+				if (sq->startx > si->startx)
+					a = (yn(sq->endy) - y0(si->starty))/ (xn(sq->endx) - x0(si->startx));
+				else if (sq->startx < si->startx) //negative line
+					a = (yn(si->endy) - y0(sq->starty)) / (xn(si->endx) - x0(sq->startx));
+				else //vertical line
+					continue;
+				//step4
+				bool validLine = false;
+				validLine = fabs(((double)x0(SL.startx) - a*y0(SL.starty)) - (xn(SL.endx) - a*yn(SL.endy))) < 1.0 ;
 
-double y0(double y) {
-	return y + 0.5;
-}
+				if (validLine) //if valid go to step 5, if not go to step 7
+				{
+					//step 5
+					tempLineList.push_back(*sq);
+					si = sq;
+					continue; //continue is step 6, aka starts the process over and keeps looking
+				}
+			}
+		}
+		//step 7
 
-double yn(double y) {
-	return y + 0.5;
-}
-
-double x0(double y) {
-	return y + 0.5;
-}
-
-double xn(double y) {
-	return y + 0.5;
-}
-
-double LengthBetweenTwoLines(LineSegment L1, LineSegment L2) {
-	return sqrt( (double)(L2.endx - L1.startx) * (L2.endx - L1.startx) + (L2.endy - L1.starty) * (L2.endy - L1.starty));
+		lineList.push_back(LineSegment(tempLineList[0].startx, tempLineList.back().endx, tempLineList[0].starty, tempLineList.back().endy, (tempLineList[0].startx + tempLineList.back().endx) / 2.0, 
+			(tempLineList[0].starty + tempLineList.back().endy) / 2.0));
+		tempLineList.clear();
+	}
+	return lineList;
 }

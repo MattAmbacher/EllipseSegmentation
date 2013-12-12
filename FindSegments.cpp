@@ -1,4 +1,4 @@
-#include "LineSegment.h"
+ #include "LineSegment.h"
 #include "itkImageLinearIteratorWithIndex.h"
 #include "itkImage.h"
 
@@ -6,6 +6,7 @@ using std::vector;
 
 typedef itk::Image<float, 2> ImageType;
 typedef itk::ImageLinearIteratorWithIndex<ImageType> InIter;
+const int MAXLEN = 5;
 
 vector<LineSegment> FindHorizontalLines(itk::Image<float, 2>::Pointer inputImage)
 {
@@ -25,19 +26,20 @@ vector<LineSegment> FindHorizontalLines(itk::Image<float, 2>::Pointer inputImage
 		{
 			if (inIter.Get() == 1)
 			{
+				int length = 0;
 				startx = (inIter.GetIndex())[0];
 				starty = (inIter.GetIndex())[1];
-				while ((inIter.Get() == 1) && !inIter.IsAtEndOfLine())
+				while ((inIter.Get() == 1) && !inIter.IsAtEndOfLine() && length <= MAXLEN)
+				{
 					++inIter;
+					++length;
+				}
 				--inIter; //subtract one because it goes one past the desired line with the while loop above
 				endx = (inIter.GetIndex())[0];
 				endy = (inIter.GetIndex())[1];
 		
-				if ( (endx - startx) >= 3 ) 
-				{
-					LineSegment seg = LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0);
-					seg.SetLength();
-					segList.push_back(seg);
+				if ( (endx - startx) >= 3 ) {
+					segList.push_back(LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0));
 				}
 			}
 			++inIter;
@@ -48,7 +50,7 @@ vector<LineSegment> FindHorizontalLines(itk::Image<float, 2>::Pointer inputImage
 }
 
 vector<LineSegment> FindVerticalLines(itk::Image<float, 2>::Pointer inputImage)
-{	
+{
 	vector<LineSegment> segList;
 
 	InIter inIter(inputImage, inputImage->GetLargestPossibleRegion());
@@ -65,18 +67,20 @@ vector<LineSegment> FindVerticalLines(itk::Image<float, 2>::Pointer inputImage)
 		{
 			if (inIter.Get() == 1)
 			{
+				int length = 0;
 				startx = (inIter.GetIndex())[0];
 				starty = (inIter.GetIndex())[1];
-				while ((inIter.Get() == 1) && !inIter.IsAtEndOfLine())
+				while ((inIter.Get() == 1) && !inIter.IsAtEndOfLine() && length <= MAXLEN)
+				{
 					++inIter;
+					++length;
+				}
 				--inIter; //subtract one because it goes one past the desired line with the while loop above
 				endx = (inIter.GetIndex())[0];
 				endy = (inIter.GetIndex())[1];
 		
-				if ( (endy - starty) >= 2 ) {
-					LineSegment seg = LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0);
-					seg.SetLength();
-					segList.push_back(seg);
+				if ( (endy - starty) >= 3 ) {
+					segList.push_back(LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0));
 				}
 			}
 			++inIter;
@@ -96,7 +100,6 @@ vector<LineSegment> FindPosDiagLines(itk::Image<float, 2>::Pointer inputImage)
 
 	const itk::SizeValueType *imageSize = inputImage->GetLargestPossibleRegion().GetSize().GetSize();
 	int startx, endx, starty, endy, midx, midy;
-	int length = 0;
 	while (inIter.Remaining())
 	{
 		inIter.GoToBeginOfLine();
@@ -105,14 +108,13 @@ vector<LineSegment> FindPosDiagLines(itk::Image<float, 2>::Pointer inputImage)
 			
 			if (inIter.Get() == 1)
 			{
-				InIter origIter = inIter;
 				startx = (inIter.GetIndex())[0];
 				starty = (inIter.GetIndex())[1];
-
-				while ((inIter.Get() == 1) && !inIter.IsAtEndOfLine()) {
+				int length = 0;
+				while ((inIter.Get() == 1) && !inIter.IsAtEndOfLine() && length <= MAXLEN) {
 					inIter.NextLineImproved();
-					inIter++;
-					length++;
+					++inIter;
+					++length;
 				}
 				//----- Need to go back one diagonal pixel because while loop takes an extra one.----
 				inIter--;
@@ -121,10 +123,8 @@ vector<LineSegment> FindPosDiagLines(itk::Image<float, 2>::Pointer inputImage)
 				endx = (inIter.GetIndex())[0];
 				endy = (inIter.GetIndex())[1];
 		
-				if ( length >= 2 ) {
-					LineSegment seg = LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0);
-					seg.SetLength();
-					segList.push_back(seg);
+				if ( length >= 3 ) {
+					segList.push_back(LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0));
 				}
 
 				for (int i=1; i < length; i++){
@@ -151,7 +151,7 @@ vector<LineSegment> FindNegDiagLines(itk::Image<float, 2>::Pointer inputImage)
 
 	const itk::SizeValueType *imageSize = inputImage->GetLargestPossibleRegion().GetSize().GetSize();
 	int startx, endx, starty, endy, midx, midy;
-	int length = 0;
+
 	while (inIter.Remaining())
 	{
 		inIter.GoToBeginOfLine();
@@ -160,14 +160,13 @@ vector<LineSegment> FindNegDiagLines(itk::Image<float, 2>::Pointer inputImage)
 			
 			if (inIter.Get() == 1)
 			{
-				InIter origIter = inIter;
+				int length = 0;
 				startx = (inIter.GetIndex())[0];
 				starty = (inIter.GetIndex())[1];
-
-				while ((inIter.Get() == 1) && !inIter.IsAtEndOfLine()) {
+				while ((inIter.Get() == 1) && !inIter.IsAtReverseEndOfLine() && length <= MAXLEN) {
 					inIter.NextLineImproved();
 					inIter--;
-					length++;
+					++length;
 				}
 				//----- Need to go back one diagonal pixel because while loop takes an extra one.----
 				inIter++;
@@ -176,10 +175,8 @@ vector<LineSegment> FindNegDiagLines(itk::Image<float, 2>::Pointer inputImage)
 				endx = (inIter.GetIndex())[0];
 				endy = (inIter.GetIndex())[1];
 		
-				if ( length >= 2 ) {
-					LineSegment seg = LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0);
-					seg.SetLength();
-					segList.push_back(seg);
+				if ( length >= 3 ) {
+					segList.push_back(LineSegment(startx, endx, starty, endy, double(startx + endx) / 2.0, double(starty + endy) / 2.0));
 				}
 
 				for (int i=1; i < length; i++){

@@ -14,5 +14,6 @@ public:
 	ArcGroup(std::vector<LineSegment>, double, double, double);
 };
 
+std::vector<ArcGroup> ArcExtraction(std::vector<LineSegment>);
 
 #endif

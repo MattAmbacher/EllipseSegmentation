@@ -1,0 +1,3 @@
+C:/Users/Matthew Ambacher/Desktop/EllipseSegmentation/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Matthew Ambacher/Desktop/EllipseSegmentation/build/CMakeFiles/LineSegmentation.dir
+C:/Users/Matthew Ambacher/Desktop/EllipseSegmentation/build/CMakeFiles/ZERO_CHECK.dir

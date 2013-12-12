@@ -1,6 +1,7 @@
 #ifndef GUARD_LINESEGMENT_H
 #define GUARD_LINESEGMENT_H
 #include <vector>
+#include <string>
 #include "itkImage.h"
 #include "itkImageLinearIteratorWithIndex.h"
 
@@ -15,8 +16,11 @@ public:
 	float GetLength();
 	void SetTheta();
 	double GetTheta();
+	void SetDirection();
+	std::string GetDirection();
 	int startx, endx, starty, endy;
 	double midx, midy, slope;
+	std::string direction;
 
 	LineSegment& operator= (const LineSegment& );
 	friend bool operator==(const LineSegment&, const LineSegment&);

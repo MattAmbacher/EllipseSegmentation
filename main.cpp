@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include <boost/progress.hpp>
 #include "itkGDCMImageIO.h"
 #include "gdcmImageReader.h"
 #include "itkImageFileReader.h"
@@ -15,7 +14,6 @@
 #include "ArcGroup.h"
 
 int main() {
-	boost::progress_timer timer;
 
 	using std::string;			using std::vector;
 
@@ -30,11 +28,16 @@ int main() {
 
 	typedef itk::ImageFileWriter< OutputImageType > WriterType;
 	WriterType::Pointer writer = WriterType::New();
-	
+	std::cout << "-------------------------------------------------------------------" << std::endl;
+	std::cout << std::endl;
+	std::cout << "\t\t\tFINDING SEGMENTS" << std::endl;
+	std::cout << std::endl;
+	std::cout << "-------------------------------------------------------------------" << std::endl;
 	vector<LineSegment> horizSegments = FindHorizontalLines(binarizedImage);
 	vector<LineSegment> vertSegments = FindVerticalLines(binarizedImage);
 	vector<LineSegment> posDiagSegments = FindPosDiagLines(binarizedImage);
 	vector<LineSegment> negDiagSegments = FindNegDiagLines(binarizedImage);
+	std::cout << "Done!" << std::endl;
 
 	std::cout << "-------------------------------------------------------------------" << std::endl;
 	std::cout << std::endl;
@@ -46,7 +49,6 @@ int main() {
 	vector<LineSegment> posDiagLines = DiagExtraction(posDiagSegments, 672, 672);
 	vector<LineSegment> negDiagLines = DiagExtraction(negDiagSegments, 672, 672);
 	std::cout << "Done!" << std::endl;
-	std::cout << std::endl;
 
 	
 	vector<LineSegment> lines;
@@ -70,25 +72,22 @@ int main() {
 	std::cout << "\t\t\tWRITING OUTPUT TO FILE" << std::endl;
 	std::cout << std::endl;
 	std::cout << "-------------------------------------------------------------------" << std::endl;
-	/*
-	for (vector<LineSegment>::iterator it = lines.begin(); it != lines.end(); ++it)
-	{
-		ofile << it->startx << '\t' << it->starty << std::endl;
-		ofile << it->endx << '\t' << it->endy << std::endl;
-	}
-	 */
+	
+
+	 /* -------------- for testing purposes -------------- */
 	for (vector<ArcGroup>::iterator it = arcs.begin(); it != arcs.end(); ++it)
 	{
-		for (vector<LineSegment>::iterator lineIt = it->LA.begin(); lineIt != it->LA.end(); ++ lineIt) {
+		for (vector<LineSegment>::iterator lineIt = it->LA.begin(); lineIt != it->LA.end(); ++lineIt) {
 			ofile << lineIt->startx << '\t' << lineIt->starty << std::endl;
 			ofile << lineIt->endx << '\t' << lineIt->endy << std::endl;
 		}
 	}
 	
 	ofile.close();
+	/* -------------- end of testing -------------- */
 
 	std::cout << "Done!" << std::endl;
-	std::cin.get();
+
 /*
 	writer->SetFileName( outfile );
 	writer->SetInput( binarizedImage );
